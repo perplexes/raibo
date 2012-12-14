@@ -1,17 +1,17 @@
 module Raibo
   class Message
-    attr_reader :kind, :from, :to, :body
+    attr_reader :raw, :kind, :from, :to, :body
 
-    def initialize(kind, from, to, body)
-      @kind, @from, @to, @body = kind, from, to, body
+    def initialize(raw, kind, from, to, body)
+      @raw, @kind, @from, @to, @body = raw, kind, from, to, body
     end
   end
 
   class IrcMessage
-    attr_reader :prefix, :type, :middle, :trailing
+    attr_reader :raw, :prefix, :type, :middle, :trailing
 
     def initialize(line)
-      @prefix, @type, @middle, @trailing = parse_line(line)
+      @raw, @prefix, @type, @middle, @trailing = line, *parse_line(line)
     end
 
     def kind
